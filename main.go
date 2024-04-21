@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"io/fs"
 	"log"
 	"os"
+	"strings"
 	"sync"
 )
 
@@ -25,7 +25,8 @@ func GetPath(dir *string, file *os.File) error {
 		}
 
 		if d.Name() == ".git" {
-			_, err := file.WriteString(path + "\n")
+			// shit line
+			_, err := file.WriteString(strings.TrimRight(*dir, "/") + "/" + path[:len(path)-4] + "\n")
 			if err != nil {
 				return err
 			}
